@@ -14,9 +14,9 @@ type car struct {
 	licensePlateNo string
 }
 
-// Car details
+// Car details container type
+type carDetails map[int]car //creating custom
 
-type carDetails map[int]car //creating custom datatype
 func (carDetails carDetails) filterCarByPriceBymodel() {
 	var resultByPrice []int
 	fmt.Println("If you Want to skip filter just Press Enter ")
@@ -31,13 +31,19 @@ func (carDetails carDetails) filterCarByPriceBymodel() {
 	fmt.Scanln(&model)
 
 	for key, value := range carDetails {
-		if minPrice != 0 && maxPrice != 0 && value.pricePerDay >= minPrice && value.pricePerDay <= maxPrice {
+		if maxPrice != 0 && value.pricePerDay >= minPrice && value.pricePerDay <= maxPrice {
 			resultByPrice = append(resultByPrice, key)
-		} else if minPrice == 0 && value.pricePerDay >= minPrice && value.pricePerDay <= maxPrice {
+		} else if maxPrice == 0 && value.pricePerDay >= minPrice {
 			resultByPrice = append(resultByPrice, key)
 		}
 	}
-	if model != "" {
+	if (minPrice == 0 && maxPrice == 0) && model != "" {
+		for _, value := range carDetails {
+			if value.model == model {
+				fmt.Print("Car Id :", value)
+			}
+		}
+	} else if model != "" {
 		for _, value := range resultByPrice {
 			if carDetails[value].model == model {
 				fmt.Print("Car Id :", value)

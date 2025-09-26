@@ -14,9 +14,9 @@ type customer struct {
 }
 
 // customer Details
-var customerDetails = make(map[int]customer)
+type customerDetails map[int]customer
 
-func addCustomerDetails() {
+func (customerDetails customerDetails) addCustomerDetails() {
 	fmt.Println("Enter customer name")
 	var name string
 	fmt.Scanln(&name)

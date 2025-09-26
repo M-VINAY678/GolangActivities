@@ -5,7 +5,10 @@ import (
 )
 
 func main() {
-	allCars := make(carDetails)
+	// Reservation Details
+	var reservationManager ReservationManagement = make(reservationDetails)
+	var carManager CarManagement = make(carDetails)
+	var customerAdder CustomerAdder = make(customerDetails)
 	on := true
 	for on {
 		fmt.Println("Enter 1: To add customer Details \nEnter 2: To add Car Details")
@@ -14,19 +17,19 @@ func main() {
 		fmt.Scanln(&option)
 		switch option {
 		case 1:
-			addCustomerDetails()
+			customerAdder.addCustomerDetails()
 		case 2:
-			allCars.addCarDetails()
+			carManager.addCarDetails()
 		case 3:
-			getAvailabilityOfCar()
+			reservationManager.getAvailabilityOfCar()
 		case 4:
-			carReservation()
+			reservationManager.carReservation()
 		case 5:
-			modifyReservation()
+			reservationManager.modifyReservation()
 		case 6:
-			cancelReservation()
+			reservationManager.cancelReservation()
 		case 7:
-			allCars.filterCarByPriceBymodel()
+			carManager.filterCarByPriceBymodel()
 		case 8:
 			on = false
 		}
