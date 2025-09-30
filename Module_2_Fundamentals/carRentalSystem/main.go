@@ -16,20 +16,80 @@ func main() {
 		var option int
 		fmt.Scanln(&option)
 		switch option {
+
 		case 1:
-			customerAdder.addCustomerDetails()
+			fmt.Println("Enter customer name")
+			var name string
+			fmt.Scanln(&name)
+			fmt.Println("Enter customer license no")
+			var licenseNo string
+			fmt.Scanln(&licenseNo)
+			customerAdder.addCustomerDetails(name, licenseNo)
+
 		case 2:
-			carManager.addCarDetails()
+			fmt.Println("Enter car model")
+			var model string
+			fmt.Scanln(&model)
+			fmt.Println("Enter car's license plate no")
+			var licenseNo string
+			fmt.Scanln(&licenseNo)
+			carManager.addCarDetails(model, licenseNo)
+
 		case 3:
-			reservationManager.getAvailabilityOfCar()
+			fmt.Println("Enter Start Date in this format '2025-09-23'")
+			var startDate string
+			fmt.Scanln(&startDate)
+			fmt.Println("Enter End Date in this format '2025-09-23'")
+			var endDate string
+			fmt.Scanln(&endDate)
+			reservationManager.getAvailabilityOfCar(startDate, endDate)
+
 		case 4:
-			reservationManager.carReservation()
+			fmt.Println("Enter customer Id")
+			var customerID int
+			fmt.Scanln(&customerID)
+			fmt.Println("Enter Car Id ")
+			var carID int
+			fmt.Scanln(&carID)
+			fmt.Println("Enter Start Date in this format '2025-09-23'")
+			var startDate string
+			fmt.Scanln(&startDate)
+			fmt.Println("Enter End Date in this format '2025-09-23'")
+			var endDate string
+			fmt.Scanln(&endDate)
+			reservationManager.carReservation(customerID, carID, startDate, endDate)
+
 		case 5:
-			reservationManager.modifyReservation()
+			fmt.Println("Enter Reservation Id")
+			var reservationID int
+			fmt.Scanln(&reservationID)
+			fmt.Println("Enter Start Date in this format '2025-09-23'")
+			var startDate string
+			fmt.Scanln(&startDate)
+			fmt.Println("Enter End Date in this format '2025-09-23'")
+			var endDate string
+			fmt.Scanln(&endDate)
+			reservationManager.modifyReservation(reservationID, startDate, endDate)
+
 		case 6:
-			reservationManager.cancelReservation()
+			fmt.Println("Enter Reservation Id")
+			var reservationID int
+			fmt.Scanln(&reservationID)
+			reservationManager.cancelReservation(reservationID)
+
 		case 7:
-			carManager.filterCarByPriceBymodel()
+			fmt.Println("If you Want to skip filter just Press Enter ")
+			fmt.Println("Enter Minimum price per day")
+			var minPrice int
+			fmt.Scanln(&minPrice)
+			fmt.Println("Enter Maximum price per day")
+			var maxPrice int
+			fmt.Scanln(&maxPrice)
+			fmt.Println("Enter car model")
+			var model string
+			fmt.Scanln(&model)
+			carManager.filterCarByPriceByModel(minPrice, maxPrice, model)
+
 		case 8:
 			on = false
 		}

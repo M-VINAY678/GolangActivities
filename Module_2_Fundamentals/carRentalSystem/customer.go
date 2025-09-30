@@ -16,13 +16,7 @@ type customer struct {
 // customer Details
 type customerDetails map[int]customer
 
-func (customerDetails customerDetails) addCustomerDetails() {
-	fmt.Println("Enter customer name")
-	var name string
-	fmt.Scanln(&name)
-	fmt.Println("Enter customer license no")
-	var licenseNo string
-	fmt.Scanln(&licenseNo)
+func NewCustomer(name string, licenseNo string) customer {
 	s := customer{
 		id:        customerId,
 		name:      name,
@@ -30,7 +24,11 @@ func (customerDetails customerDetails) addCustomerDetails() {
 		phoneNo:   "812****957",
 		licenseNo: licenseNo,
 	}
-	customerDetails[customerId] = s
 	customerId++
-	fmt.Println(customerDetails)
+	return s
+}
+func (customerDetails customerDetails) addCustomerDetails(name string, licenseNo string) {
+	c := NewCustomer(name, licenseNo)
+	customerDetails[c.id] = c
+	fmt.Println("Customer Details is Added")
 }

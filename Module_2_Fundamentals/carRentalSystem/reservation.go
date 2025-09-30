@@ -19,6 +19,16 @@ type reservation struct {
 	endDate    string
 }
 
+func NewReservation(customerID int, carID int, startDate string, endDate string) reservation {
+	s := reservation{
+		id:         reservationId,
+		carId:      carID,
+		customerId: customerID,
+		startDate:  startDate,
+		endDate:    endDate,
+	}
+	return s
+}
 func validate(startDate string, endDate string, reservationDetails reservationDetails) bool {
 	layout := "2025-09-23"
 	start, _ := time.Parse(layout, startDate)
@@ -33,62 +43,32 @@ func validate(startDate string, endDate string, reservationDetails reservationDe
 	return true
 }
 
-func (reservationDetails reservationDetails) cancelReservation() {
-	fmt.Println("Enter Reservation Id")
-	var reservationID int
-	fmt.Scanln(&reservationID)
+func (reservationDetails reservationDetails) cancelReservation(reservationID int) {
+
 	delete(reservationDetails, reservationID)
 }
 
-func (reservationDetails reservationDetails) modifyReservation() {
-	fmt.Println("Enter Reservation Id")
-	var reservationID int
-	fmt.Scanln(&reservationID)
-	fmt.Println("Enter Start Date in this format '2025-09-23'")
-	var startDate string
-	fmt.Scanln(&startDate)
-	fmt.Println("Enter End Date in this format '2025-09-23'")
-	var endDate string
-	fmt.Scanln(&endDate)
+func (reservationDetails reservationDetails) modifyReservation(reservationID int, startDate string, endDate string) {
+
 	temp := reservationDetails[reservationID]
 	temp.startDate = startDate
 	temp.endDate = endDate
 	reservationDetails[reservationID] = temp
 	fmt.Println(temp)
 }
-
-func (reservationDetails reservationDetails) carReservation() {
-	fmt.Println("Enter customer Id")
-	var customerID int
-	fmt.Scanln(&customerID)
+func (reservationDetails reservationDetails) carReservation(customerID int, carID int, startDate string, endDate string) {
 	if customerID >= customerId || customerID < 0 {
 		fmt.Println("wrong entry of customerId")
 		return
 	}
-	fmt.Println("Enter Car Id ")
-	var carID int
-	fmt.Scanln(&carID)
 	if carID >= carId || carID < 0 {
 		fmt.Println("wrong entry of customerId")
 		return
 	}
-	fmt.Println("Enter Start Date in this format '2025-09-23'")
-	var startDate string
-	fmt.Scanln(&startDate)
-	fmt.Println("Enter End Date in this format '2025-09-23'")
-	var endDate string
 	if !validate(startDate, endDate, reservationDetails) {
 		return
 	}
-
-	fmt.Scanln(&endDate)
-	s := reservation{
-		id:         reservationId,
-		carId:      carID,
-		customerId: customerID,
-		startDate:  startDate,
-		endDate:    endDate,
-	}
+	s := NewReservation(customerID, carID, startDate, endDate)
 	reservationDetails[reservationId] = s
 	reservationId++
 	fmt.Println(reservationDetails)
@@ -97,14 +77,8 @@ func (reservationDetails reservationDetails) carReservation() {
 
 var availability = make(map[int]bool)
 
-func (reservationDetails reservationDetails) getAvailabilityOfCar() {
+func (reservationDetails reservationDetails) getAvailabilityOfCar(startDate string, endDate string) {
 	layout := "2025-09-23"
-	fmt.Println("Enter Start Date in this format '2025-09-23'")
-	var startDate string
-	fmt.Scanln(&startDate)
-	fmt.Println("Enter End Date in this format '2025-09-23'")
-	var endDate string
-	fmt.Scanln(&endDate)
 	start, _ := time.Parse(layout, startDate)
 	end, _ := time.Parse(layout, endDate)
 	for _, value := range reservationDetails {

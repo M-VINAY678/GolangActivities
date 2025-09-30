@@ -1,17 +1,17 @@
 package main
 
 type ReservationManagement interface {
-	cancelReservation()
-	carReservation()
-	modifyReservation()
-	getAvailabilityOfCar()
+	cancelReservation(int)
+	carReservation(int, int, string, string)
+	modifyReservation(int, string, string)
+	getAvailabilityOfCar(string, string)
 }
 
 type CarManagement interface {
-	filterCarByPriceBymodel()
-	addCarDetails()
+	filterCarByPriceByModel(int, int, string)
+	addCarDetails(string, string)
 }
 
 type CustomerAdder interface {
-	addCustomerDetails()
+	addCustomerDetails(string, string)
 }

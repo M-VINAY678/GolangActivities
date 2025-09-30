@@ -14,22 +14,23 @@ type car struct {
 	licensePlateNo string
 }
 
+func NewCar(model string, licenseNo string) car {
+	s := car{
+		id:             carId,
+		make:           "india",
+		model:          model,
+		year:           "2025",
+		pricePerDay:    2000,
+		licensePlateNo: licenseNo,
+	}
+	return s
+}
+
 // Car details container type
 type carDetails map[int]car //creating custom
 
-func (carDetails carDetails) filterCarByPriceBymodel() {
+func (carDetails carDetails) filterCarByPriceByModel(minPrice int, maxPrice int, model string) {
 	var resultByPrice []int
-	fmt.Println("If you Want to skip filter just Press Enter ")
-	fmt.Println("Enter Minimum price per day")
-	var minPrice int
-	fmt.Scanln(&minPrice)
-	fmt.Println("Enter Maximum price per day")
-	var maxPrice int
-	fmt.Scanln(&maxPrice)
-	fmt.Println("Enter car model")
-	var model string
-	fmt.Scanln(&model)
-
 	for key, value := range carDetails {
 		if maxPrice != 0 && value.pricePerDay >= minPrice && value.pricePerDay <= maxPrice {
 			resultByPrice = append(resultByPrice, key)
@@ -55,21 +56,8 @@ func (carDetails carDetails) filterCarByPriceBymodel() {
 		}
 	}
 }
-func (carDetails carDetails) addCarDetails() {
-	fmt.Println("Enter car model")
-	var model string
-	fmt.Scanln(&model)
-	fmt.Println("Enter car's license plate no")
-	var licenseNo string
-	fmt.Scanln(&licenseNo)
-	s := car{
-		id:             carId,
-		make:           "india",
-		model:          model,
-		year:           "2025",
-		pricePerDay:    2000,
-		licensePlateNo: licenseNo,
-	}
+func (carDetails carDetails) addCarDetails(model string, licenseNo string) {
+	s := NewCar(model, licenseNo)
 	carDetails[carId] = s
 	availability[carId] = true
 	fmt.Print(carDetails)
