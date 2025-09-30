@@ -16,3 +16,5 @@
 * Created customer.go
    * Implemented one method, to add details of customer.
           
+## Changes Done in this module:
+* Separated Input from the business Logic
