@@ -16,5 +16,12 @@
 * Created customer.go
    * Implemented one method, to add details of customer.
           
-## Changes Done in this module:
+## Changes Done in previous module:
 * Separated Input from the business Logic
+
+## Changes Done in This module:
+* Added Directories for each .go file 
+* Added different package to different .go file
+* Then worked on naming for readability
+* Then worked on naming convention to export.
+
