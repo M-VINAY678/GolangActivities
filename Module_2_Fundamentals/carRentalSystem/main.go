@@ -1,14 +1,18 @@
 package main
 
 import (
+	"carRentalSystem/car"
+	"carRentalSystem/customer"
+	"carRentalSystem/interfaces"
+	"carRentalSystem/reservation"
 	"fmt"
 )
 
 func main() {
 	// Reservation Details
-	var reservationManager ReservationManagement = make(reservationDetails)
-	var carManager CarManagement = make(carDetails)
-	var customerAdder CustomerAdder = make(customerDetails)
+	var reservationManager interfaces.ReservationManagement = make(reservation.Reservations)
+	var carManager interfaces.CarManagement = make(car.Cars)
+	var customerAdder interfaces.CustomerAdder = make(customer.Customers)
 	on := true
 	for on {
 		fmt.Println("Enter 1: To add customer Details \nEnter 2: To add Car Details")
@@ -24,7 +28,7 @@ func main() {
 			fmt.Println("Enter customer license no")
 			var licenseNo string
 			fmt.Scanln(&licenseNo)
-			customerAdder.addCustomerDetails(name, licenseNo)
+			customerAdder.Add(name, licenseNo)
 
 		case 2:
 			fmt.Println("Enter car model")
@@ -33,7 +37,7 @@ func main() {
 			fmt.Println("Enter car's license plate no")
 			var licenseNo string
 			fmt.Scanln(&licenseNo)
-			carManager.addCarDetails(model, licenseNo)
+			carManager.Add(model, licenseNo)
 
 		case 3:
 			fmt.Println("Enter Start Date in this format '2025-09-23'")
@@ -42,7 +46,7 @@ func main() {
 			fmt.Println("Enter End Date in this format '2025-09-23'")
 			var endDate string
 			fmt.Scanln(&endDate)
-			reservationManager.getAvailabilityOfCar(startDate, endDate)
+			reservationManager.AvailableCars(startDate, endDate)
 
 		case 4:
 			fmt.Println("Enter customer Id")
@@ -57,7 +61,7 @@ func main() {
 			fmt.Println("Enter End Date in this format '2025-09-23'")
 			var endDate string
 			fmt.Scanln(&endDate)
-			reservationManager.carReservation(customerID, carID, startDate, endDate)
+			reservationManager.Book(customerID, carID, startDate, endDate)
 
 		case 5:
 			fmt.Println("Enter Reservation Id")
@@ -69,13 +73,13 @@ func main() {
 			fmt.Println("Enter End Date in this format '2025-09-23'")
 			var endDate string
 			fmt.Scanln(&endDate)
-			reservationManager.modifyReservation(reservationID, startDate, endDate)
+			reservationManager.Update(reservationID, startDate, endDate)
 
 		case 6:
 			fmt.Println("Enter Reservation Id")
 			var reservationID int
 			fmt.Scanln(&reservationID)
-			reservationManager.cancelReservation(reservationID)
+			reservationManager.Cancel(reservationID)
 
 		case 7:
 			fmt.Println("If you Want to skip filter just Press Enter ")
@@ -88,7 +92,7 @@ func main() {
 			fmt.Println("Enter car model")
 			var model string
 			fmt.Scanln(&model)
-			carManager.filterCarByPriceByModel(minPrice, maxPrice, model)
+			carManager.Filter(minPrice, maxPrice, model)
 
 		case 8:
 			on = false

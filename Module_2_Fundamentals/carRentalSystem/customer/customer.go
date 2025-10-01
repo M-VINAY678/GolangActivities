@@ -1,6 +1,9 @@
-package main
+package customer
 
-import "fmt"
+import (
+	"carRentalSystem/reservation"
+	"fmt"
+)
 
 var customerId = 0
 
@@ -14,7 +17,7 @@ type customer struct {
 }
 
 // customer Details
-type customerDetails map[int]customer
+type Customers map[int]customer
 
 func NewCustomer(name string, licenseNo string) customer {
 	s := customer{
@@ -27,8 +30,9 @@ func NewCustomer(name string, licenseNo string) customer {
 	customerId++
 	return s
 }
-func (customerDetails customerDetails) addCustomerDetails(name string, licenseNo string) {
+func (Customers Customers) Add(name string, licenseNo string) {
 	c := NewCustomer(name, licenseNo)
-	customerDetails[c.id] = c
+	Customers[c.id] = c
+	reservation.CarAvailability[c.id] = true
 	fmt.Println("Customer Details is Added")
 }
