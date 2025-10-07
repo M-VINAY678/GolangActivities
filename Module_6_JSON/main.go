@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -14,6 +15,7 @@ type User struct {
 	Age       int
 	Email     string
 	Apk       string
+	Image     *string
 }
 
 func UnStructuredResponse(body []byte) {
@@ -48,6 +50,23 @@ func writingToLocalFile(Users []User) {
 
 	fmt.Println("Data saved to users.json successfully!")
 }
+func convertingImageLinkToBase64(Users []User) {
+
+	for _, user := range Users {
+		imageURL := *user.Image
+		response, err := http.Get(imageURL)
+		if err != nil {
+			panic(err)
+		}
+		defer response.Body.Close()
+		data, err := io.ReadAll(response.Body)
+		if err != nil {
+			panic(err)
+		}
+		encoded := base64.StdEncoding.EncodeToString(data)
+		*user.Image = encoded
+	}
+}
 func structuredResponse(body []byte) {
 	//fmt.Print(string(body))
 	var result struct {
@@ -61,6 +80,7 @@ func structuredResponse(body []byte) {
 	for k, v := range result.Users {
 		fmt.Println(k, ",", v)
 	}
+	convertingImageLinkToBase64(result.Users)
 	writingToLocalFile(result.Users)
 }
 func main() {
@@ -70,9 +90,9 @@ func main() {
 		return
 	}
 	defer response.Body.Close()
-	body, _ := io.ReadAll(response.Body)
+	byte, _ := io.ReadAll(response.Body)
 	//When we know the struture of Response data
-	structuredResponse(body)
+	structuredResponse(byte)
 	//when you don't know the struture of Respone data
-	UnStructuredResponse(body)
+	UnStructuredResponse(byte)
 }
