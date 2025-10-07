@@ -9,4 +9,3 @@
    * First created users.json file
    * then using marshal, converted []User datatype to json format and 
    * Then using os package stored in user.json file
-   
