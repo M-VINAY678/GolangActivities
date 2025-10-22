@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package routeguide;
+
+option go_package = "module_12_gRPC/routeguide";
+
+// Basic Point message
+message Point {
+  int32 latitude = 1;
+  int32 longitude = 2;
+}
+
+// Feature message
+message Feature {
+  string name = 1;
+  Point location = 2;
+}
+
+// Rectangle for ListFeatures
+message Rectangle {
+  Point lo = 1;
+  Point hi = 2;
+}
+
+// RouteSummary for RecordRoute
+message RouteSummary {
+  int32 point_count = 1;
+  int32 feature_count = 2;
+  int32 distance = 3;
+  int32 elapsed_time = 4;
+}
+
+// RouteNote for RouteChat
+message RouteNote {
+  Point location = 1;
+  string message = 2;
+}
+
+// Service definition
+service RouteGuide {
+  rpc GetFeature(Point) returns (Feature) {}
+  rpc ListFeatures(Rectangle) returns (stream Feature) {}
+  rpc RecordRoute(stream Point) returns (RouteSummary) {}
+  rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
+}

@@ -1,4 +1,4 @@
-package main
+package DB
 
 import (
 	"flag"
@@ -14,7 +14,7 @@ import (
 // NewPost acts like a constructor for dBClient.
 // It loads environment variables, reads the database name from CLI flags or .env,
 // establishes a GORM database connection, and performs auto-migration for the Post model.
-func NewPost() (*dBClient, error) {
+func NewPost() (PostRepository, error) {
 	if err := godotenv.Load(); err != nil {
 		log.Fatal("Error loading .env file")
 	}
