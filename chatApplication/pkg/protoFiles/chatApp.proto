@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package protoFiles;
+
+option go_package = "chatApplication/pkg/protoFiles";
+
+// Messages
+
+// Client sends this for both group and private messages
+message ChatRequest {
+    string sender = 1;          
+    string receiver = 2;// Empty = broadcast, non-empty = private message
+    string text = 3; 
+}
+
+// Server sends this back to clients
+message ChatResponse {
+    string sender = 1;          
+    string text = 2;
+}
+
+// Service Definition
+service ChatService {
+    rpc ChatRoom(stream ChatRequest) returns (stream ChatResponse);
+}
